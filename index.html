@@ -4,16 +4,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NP Software Nutrition Pro v3</title>
+<title>NP Software Nutrition Pro v4</title>
 <style>
 body{font-family:Arial,sans-serif;max-width:900px;margin:auto;padding:20px}
-input,select,button{width:100%;padding:10px;margin:5px 0}
+input,select,button{width:100%;padding:12px;margin:6px 0;box-sizing:border-box}
 .report{border:1px solid #ccc;padding:15px;margin-top:15px}
-.footer{margin-top:30px;text-align:center;font-weight:bold;color:#555}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ddd;padding:6px;text-align:left}
+.footer{margin-top:30px;text-align:center;color:#666}
 </style>
 </head>
 <body>
-<h1>NP Software Nutrition Pro v3</h1>
+<h1>NP Software Nutrition Pro v4</h1>
 <p>Professional Nutrition Report Generator</p>
 
 <input id="name" placeholder="Name">
@@ -31,19 +33,22 @@ input,select,button{width:100%;padding:10px;margin:5px 0}
 <div id="report" class="report"></div>
 
 <div class="footer">
-Team Nagaraj Poojary<br>
+<b>Team Nagaraj Poojary</b><br>
 Powered by NP Software
 </div>
 
 <script>
 function generate(){
- let name=document.getElementById('name').value || 'User';
- let age=document.getElementById('age').value;
- let h=+document.getElementById('height').value;
- let w=+document.getElementById('weight').value;
+ let name=nameEl.value||'User';
+ let age=+ageEl.value||30;
+ let h=+heightEl.value||170;
+ let w=+weightEl.value||70;
+ let g=gender.value;
 
+ let bmi=(w/((h/100)*(h/100))).toFixed(1);
  let minProtein=(w*0.8).toFixed(0);
- let optimalProtein=(w*1.8).toFixed(0);
+ let optProtein=(w*1.8).toFixed(0);
+ let gainProtein=(w*2.2).toFixed(0);
  let water=(w*0.04).toFixed(1);
 
  let report=`
@@ -51,21 +56,61 @@ function generate(){
  <b>Name:</b> ${name}<br>
  <b>Age:</b> ${age}<br>
  <b>Height:</b> ${h} cm<br>
- <b>Weight:</b> ${w} kg<br><hr>
- <b>Minimum Protein:</b> ${minProtein} g/day<br>
- <b>Optimal Protein:</b> ${optimalProtein} g/day<br>
- <b>Water:</b> ${water} L/day<br><br>
- <b>Vitamin C:</b> 90 mg<br>
- <b>Vitamin D:</b> 600 IU<br>
- <b>Calcium:</b> 1000 mg<br>
- <b>Magnesium:</b> 420 mg<br>
- <br><b>Nutrition Score:</b> 100%
- <br><br><button onclick="window.print()">Save Report as PDF</button>
- <br><br><center><b>Team Nagaraj Poojary</b><br><i>Powered by NP Software</i></center>
+ <b>Weight:</b> ${w} kg<br>
+ <b>BMI:</b> ${bmi}<hr>
+
+ <table>
+ <tr><th>Nutrition</th><th>Target</th></tr>
+ <tr><td>Minimum Protein</td><td>${minProtein} g</td></tr>
+ <tr><td>Optimal Protein</td><td>${optProtein} g</td></tr>
+ <tr><td>Muscle Gain Protein</td><td>${gainProtein} g</td></tr>
+ <tr><td>Carbohydrates</td><td>250-350 g</td></tr>
+ <tr><td>Healthy Fats</td><td>50-80 g</td></tr>
+ <tr><td>Fiber</td><td>30-38 g</td></tr>
+ <tr><td>Water</td><td>${water} L</td></tr>
+ </table>
+
+ <h3>Vitamins</h3>
+ <table>
+ <tr><td>Vitamin A</td><td>900 mcg</td></tr>
+ <tr><td>B1</td><td>1.2 mg</td></tr>
+ <tr><td>B2</td><td>1.3 mg</td></tr>
+ <tr><td>B3</td><td>16 mg</td></tr>
+ <tr><td>B5</td><td>5 mg</td></tr>
+ <tr><td>B6</td><td>1.7 mg</td></tr>
+ <tr><td>B7</td><td>30 mcg</td></tr>
+ <tr><td>B9</td><td>400 mcg</td></tr>
+ <tr><td>B12</td><td>2.4 mcg</td></tr>
+ <tr><td>Vitamin C</td><td>90 mg</td></tr>
+ <tr><td>Vitamin D</td><td>600 IU</td></tr>
+ <tr><td>Vitamin E</td><td>15 mg</td></tr>
+ <tr><td>Vitamin K</td><td>120 mcg</td></tr>
+ </table>
+
+ <h3>Minerals</h3>
+ <table>
+ <tr><td>Calcium</td><td>1000 mg</td></tr>
+ <tr><td>Iron</td><td>8 mg</td></tr>
+ <tr><td>Magnesium</td><td>420 mg</td></tr>
+ <tr><td>Zinc</td><td>11 mg</td></tr>
+ <tr><td>Potassium</td><td>3400 mg</td></tr>
+ <tr><td>Selenium</td><td>55 mcg</td></tr>
+ <tr><td>Copper</td><td>900 mcg</td></tr>
+ <tr><td>Phosphorus</td><td>700 mg</td></tr>
+ <tr><td>Sodium</td><td>1500 mg</td></tr>
+ </table>
+
+ <h3>Nutrition Score: 100%</h3>
+ <button onclick="window.print()">Save Report as PDF</button>
  `;
 
  document.getElementById('report').innerHTML=report;
 }
+
+const nameEl=document.getElementById('name');
+const ageEl=document.getElementById('age');
+const heightEl=document.getElementById('height');
+const weightEl=document.getElementById('weight');
 </script>
 </body>
 </html>
